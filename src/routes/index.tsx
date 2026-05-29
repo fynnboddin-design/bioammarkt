@@ -177,13 +177,13 @@ function Index() {
             <div className="space-y-4 text-muted-foreground font-light leading-relaxed">
               <p>
                 Wir sind <span className="text-foreground">Katharina Laitsch</span> und{" "}
-                <span className="text-foreground">Anja Olden</span> – Ihre Gastgeberinnen im
-                Bio am Markt in Bad Salzuflen.
+                <span className="text-foreground">Anja Olden</span> – Ihre Geschäftsführerinnen
+                von „Bio am Markt" in Bad Salzuflen.
               </p>
               <p>
                 Mit Leidenschaft für Bio-Produkte, einem Blick für Qualität und einem Herzen
-                für unsere Region kuratieren wir täglich ein Sortiment, hinter dem wir mit
-                voller Überzeugung stehen.
+                für unsere Region, wählen wir täglich ein Sortiment, hinter dem wir mit voller
+                Überzeugung stehen, für Sie aus.
               </p>
             </div>
             <div className="pt-2">
