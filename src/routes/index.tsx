@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Leaf, MapPin, Heart, Users, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Leaf, MapPin, Heart, Users, Clock, ArrowRight, Mail, Phone } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Logo, LeafIcon } from "@/components/Logo";
 import heroBag from "@/assets/hero-bag.jpg";
@@ -9,9 +8,9 @@ import storeInterior from "@/assets/store-interior.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Bio am Markt – Ihr Biomarkt in Bad Salzuflen" },
+      { title: "Bio am Markt – Premium Biomarkt in Bad Salzuflen" },
       { name: "description", content: "Nachhaltig einkaufen, bewusst leben. Zertifizierte Bio-Produkte aus der Region in Bad Salzuflen." },
-      { property: "og:title", content: "Bio am Markt – Ihr Biomarkt in Bad Salzuflen" },
+      { property: "og:title", content: "Bio am Markt – Premium Biomarkt in Bad Salzuflen" },
       { property: "og:description", content: "Nachhaltig einkaufen, bewusst leben – für uns und unsere Region." },
       { property: "og:type", content: "website" },
     ],
@@ -23,8 +22,8 @@ export const Route = createFileRoute("/")({
 const nav = [
   { label: "Startseite", href: "#home" },
   { label: "Über uns", href: "#about" },
-  { label: "Unser Sortiment", href: "#sortiment" },
-  { label: "Regionales", href: "#regional" },
+  { label: "Sortiment", href: "#features" },
+  { label: "Regionales", href: "#features" },
   { label: "Kontakt", href: "#kontakt" },
 ];
 
@@ -35,163 +34,261 @@ const features = [
   { icon: Users, title: "Persönlich", text: "Persönliche Beratung und ein Einkaufserlebnis mit Herz." },
 ];
 
-function SectionTitle({ children }: { children: React.ReactNode }) {
+function CTAButton({
+  href,
+  children,
+  variant = "primary",
+}: {
+  href: string;
+  children: React.ReactNode;
+  variant?: "primary" | "ghost";
+}) {
+  const base =
+    "inline-flex items-center gap-2 rounded-[14px] px-6 py-3 text-sm font-medium transition-all duration-300 ease-out";
+  const styles =
+    variant === "primary"
+      ? "bg-primary text-primary-foreground hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgb(79_107_69_/_0.4)]"
+      : "text-primary hover:bg-primary/5";
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="flex items-center gap-2 text-primary">
-        <LeafIcon className="w-6 h-5" />
-        <h2 className="text-xl md:text-2xl font-medium">{children}</h2>
-      </div>
-      <div className="w-10 h-px bg-primary/40" />
+    <a href={href} className={`${base} ${styles}`}>
+      {children}
+    </a>
+  );
+}
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="inline-flex items-center gap-2 text-primary text-sm tracking-wide">
+      <LeafIcon className="w-4 h-3.5" />
+      <span>{children}</span>
     </div>
   );
 }
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
-      {/* Header */}
-      <header className="px-6 md:px-12 py-5 flex items-center justify-between max-w-7xl mx-auto">
-        <Logo />
-        <nav className="hidden lg:flex items-center gap-8 text-sm text-foreground/80">
-          {nav.map((n) => (
-            <a key={n.label} href={n.href} className="hover:text-primary transition-colors">{n.label}</a>
-          ))}
-        </nav>
-        <Button asChild className="hidden md:inline-flex">
-          <a href="#kontakt">Kontakt <LeafIcon className="w-4 h-3 ml-1" /></a>
-        </Button>
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Sticky Nav */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+          <Logo />
+          <nav className="hidden lg:flex items-center gap-10 text-sm text-foreground/75">
+            {nav.map((n) => (
+              <a key={n.label} href={n.href} className="hover:text-primary transition-colors">
+                {n.label}
+              </a>
+            ))}
+          </nav>
+          <CTAButton href="#kontakt">
+            Kontakt <ArrowRight className="w-4 h-4" />
+          </CTAButton>
+        </div>
       </header>
 
       {/* Hero */}
-      <section id="home" className="relative overflow-hidden bg-accent/40">
-        <div className="absolute inset-0 pointer-events-none opacity-30">
-          <LeafIcon className="absolute left-8 bottom-12 w-40 h-32 text-primary/40" />
+      <section id="home" className="relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <LeafIcon className="absolute -left-10 bottom-10 w-72 h-60 text-sage/20" />
+          <LeafIcon className="absolute right-1/4 top-20 w-32 h-28 text-sage/15 rotate-45" />
         </div>
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center relative">
-          <div>
-            <div className="flex items-center gap-2 text-primary mb-5">
-              <LeafIcon className="w-5 h-4" />
-              <span className="text-sm">Natürlich gut.</span>
-            </div>
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-tight text-primary">
-              Ihr Biomarkt<br />in Bad Salzuflen.
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-20 lg:py-32 grid lg:grid-cols-2 gap-16 items-center relative">
+          <div className="space-y-8">
+            <SectionLabel>Natürlich gut.</SectionLabel>
+            <h1 className="font-light text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-primary-dark tracking-tight">
+              Ihr Biomarkt<br />
+              <span className="text-primary">in Bad Salzuflen.</span>
             </h1>
-            <p className="mt-6 text-foreground/70 max-w-md leading-relaxed">
-              Nachhaltig einkaufen, bewusst leben – für uns und unsere Region.
+            <p className="text-lg text-muted-foreground max-w-md leading-relaxed font-light">
+              Nachhaltig einkaufen, bewusst leben – für uns, für Sie und für unsere Region.
             </p>
-            <Button asChild size="lg" className="mt-8 rounded-md">
-              <a href="#about">Mehr über uns <LeafIcon className="w-4 h-3 ml-2" /></a>
-            </Button>
+            <div className="flex flex-wrap gap-4 pt-2">
+              <CTAButton href="#about">
+                Mehr über uns <ArrowRight className="w-4 h-4" />
+              </CTAButton>
+              <CTAButton href="#features" variant="ghost">
+                Unser Sortiment
+              </CTAButton>
+            </div>
           </div>
           <div className="relative">
+            <div className="absolute -inset-4 bg-sage/15 rounded-[32px] -rotate-2" />
             <img
               src={heroBag}
               alt="Bio-Einkaufstasche mit frischem Gemüse"
               width={1600}
               height={1200}
-              className="w-full h-auto rounded-2xl"
+              className="relative w-full h-auto rounded-[24px] shadow-[var(--shadow-card)] object-cover"
             />
           </div>
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto">
-        <SectionTitle>Das macht uns aus</SectionTitle>
-        <div className="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-10">
-          {features.map((f) => (
-            <div key={f.title} className="text-center flex flex-col items-center">
-              <f.icon className="w-12 h-12 text-primary stroke-[1.25]" />
-              <h3 className="mt-5 text-lg text-foreground">{f.title}</h3>
-              <p className="mt-3 text-sm text-foreground/65 leading-relaxed max-w-[200px]">{f.text}</p>
-            </div>
-          ))}
+      <section id="features" className="py-24 lg:py-32">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+          <div className="text-center max-w-2xl mx-auto space-y-5">
+            <SectionLabel>Das macht uns aus</SectionLabel>
+            <h2 className="text-4xl md:text-5xl font-light text-primary-dark leading-tight">
+              Bewusst. Regional. <span className="text-primary">Echt.</span>
+            </h2>
+            <p className="text-muted-foreground font-light">
+              Vier Werte, die jeden Tag in unserem Markt sichtbar werden.
+            </p>
+          </div>
+          <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((f) => (
+              <div
+                key={f.title}
+                className="group bg-card rounded-[14px] p-8 border border-border/60 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-card)] hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <f.icon className="w-5 h-5" strokeWidth={1.5} />
+                </div>
+                <h3 className="mt-6 text-lg font-medium text-foreground">{f.title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-light">
+                  {f.text}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* About */}
-      <section id="about" className="py-12 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <img
-            src={storeInterior}
-            alt="Innenansicht von Bio am Markt"
-            width={1200}
-            height={1000}
-            loading="lazy"
-            className="w-full h-auto rounded-2xl"
-          />
-          <div className="relative">
-            <LeafIcon className="absolute -right-4 top-0 w-48 h-40 text-primary/10 -z-0" />
-            <div className="flex items-center gap-2 text-primary">
-              <LeafIcon className="w-5 h-4" />
-              <span className="text-sm">Über uns</span>
+      <section id="about" className="py-16 lg:py-24">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+          <div className="relative order-2 lg:order-1">
+            <div className="absolute -inset-4 bg-beige rounded-[32px] rotate-1" />
+            <img
+              src={storeInterior}
+              alt="Innenansicht von Bio am Markt"
+              width={1200}
+              height={1000}
+              loading="lazy"
+              className="relative w-full h-auto rounded-[24px] shadow-[var(--shadow-card)] object-cover"
+            />
+          </div>
+          <div className="space-y-6 order-1 lg:order-2">
+            <SectionLabel>Über uns</SectionLabel>
+            <h2 className="text-4xl md:text-5xl font-light text-primary-dark leading-tight">
+              Aus Überzeugung.<br />
+              <span className="text-primary">Für Sie.</span>
+            </h2>
+            <div className="space-y-4 text-muted-foreground font-light leading-relaxed">
+              <p>
+                Wir sind <span className="text-foreground">Katharina Laitsch</span> und{" "}
+                <span className="text-foreground">Anja Olden</span> – Ihre Gastgeberinnen im
+                Bio am Markt in Bad Salzuflen.
+              </p>
+              <p>
+                Mit Leidenschaft für Bio-Produkte, einem Blick für Qualität und einem Herzen
+                für unsere Region kuratieren wir täglich ein Sortiment, hinter dem wir mit
+                voller Überzeugung stehen.
+              </p>
             </div>
-            <div className="w-10 h-px bg-primary/40 mt-2 mb-6" />
-            <h2 className="font-serif text-3xl md:text-4xl text-foreground">Aus Überzeugung. Für Sie.</h2>
-            <p className="mt-6 text-foreground/70 leading-relaxed">
-              Wir sind Katharina Laitsch & Anja Olden und Ihr Biomarkt in Bad Salzuflen.
-            </p>
-            <p className="mt-4 text-foreground/70 leading-relaxed">
-              Mit Leidenschaft für Bio-Produkte, einem Blick für Qualität und einem Herzen für unsere Region.
-            </p>
-            <Button asChild className="mt-8">
-              <a href="#sortiment">Mehr erfahren <LeafIcon className="w-4 h-3 ml-2" /></a>
-            </Button>
+            <div className="pt-2">
+              <CTAButton href="#kontakt">
+                Besuchen Sie uns <ArrowRight className="w-4 h-4" />
+              </CTAButton>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Strip */}
+      <section className="py-20">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+          <div className="relative overflow-hidden rounded-[24px] bg-primary-dark text-primary-foreground p-12 lg:p-16">
+            <LeafIcon className="absolute -right-8 -top-8 w-64 h-56 text-sage/15" />
+            <LeafIcon className="absolute right-32 bottom-0 w-32 h-28 text-sage/10 rotate-180" />
+            <div className="relative max-w-2xl space-y-5">
+              <h2 className="text-3xl md:text-4xl font-light leading-tight">
+                Schauen Sie vorbei – wir freuen uns auf Sie.
+              </h2>
+              <p className="text-primary-foreground/75 font-light">
+                Am Markt 16, mitten in Bad Salzuflen. Mo–Fr 08:00–18:30, Sa 08:00–14:00.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer id="kontakt" className="mt-20 bg-accent/40 px-6 md:px-12 py-14">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10">
+      <footer id="kontakt" className="border-t border-border/60 bg-card">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-16 grid md:grid-cols-3 gap-12">
           <div>
-            <div className="flex items-center gap-2 text-primary">
-              <MapPin className="w-5 h-5" />
-              <h3 className="text-base">Adresse</h3>
+            <div className="flex items-center gap-2 text-primary mb-5">
+              <MapPin className="w-4 h-4" strokeWidth={1.5} />
+              <h3 className="text-sm font-medium tracking-wide uppercase">Adresse</h3>
             </div>
-            <div className="mt-5 text-sm text-foreground/75 space-y-1">
+            <address className="not-italic text-sm text-muted-foreground space-y-1 font-light">
+              <p className="text-foreground">Bio am Markt</p>
               <p>Am Markt 16</p>
               <p>32105 Bad Salzuflen</p>
-              <p className="pt-4">Tel.: 05222 / 80 60 838</p>
-              <p>E-Mail: <a href="mailto:info@bio-am-markt-bs.de" className="underline text-primary">info@bio-am-markt-bs.de</a></p>
-            </div>
+              <p className="pt-4 flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5" strokeWidth={1.5} /> 05222 / 80 60 838
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <a href="mailto:info@bio-am-markt-bs.de" className="hover:text-primary transition-colors">
+                  info@bio-am-markt-bs.de
+                </a>
+              </p>
+            </address>
           </div>
           <div>
-            <div className="flex items-center gap-2 text-primary">
-              <Clock className="w-5 h-5" />
-              <h3 className="text-base">Öffnungszeiten</h3>
+            <div className="flex items-center gap-2 text-primary mb-5">
+              <Clock className="w-4 h-4" strokeWidth={1.5} />
+              <h3 className="text-sm font-medium tracking-wide uppercase">Öffnungszeiten</h3>
             </div>
-            <div className="mt-5 text-sm text-foreground/75 space-y-1">
-              <p>Mo – Fr: 08:00 – 18:30 Uhr</p>
-              <p>Sa: 08:00 – 14:00 Uhr</p>
-            </div>
+            <ul className="text-sm text-muted-foreground space-y-2 font-light">
+              <li className="flex justify-between max-w-[220px]">
+                <span>Mo – Fr</span>
+                <span className="text-foreground">08:00 – 18:30</span>
+              </li>
+              <li className="flex justify-between max-w-[220px]">
+                <span>Samstag</span>
+                <span className="text-foreground">08:00 – 14:00</span>
+              </li>
+              <li className="flex justify-between max-w-[220px]">
+                <span>Sonntag</span>
+                <span>geschlossen</span>
+              </li>
+            </ul>
           </div>
           <div>
-            <div className="flex items-center gap-2 text-primary">
-              <LeafIcon className="w-5 h-4" />
-              <h3 className="text-base">Newsletter</h3>
+            <div className="flex items-center gap-2 text-primary mb-5">
+              <LeafIcon className="w-4 h-3.5" />
+              <h3 className="text-sm font-medium tracking-wide uppercase">Newsletter</h3>
             </div>
-            <p className="mt-5 text-sm text-foreground/75">
-              Bleiben Sie auf dem Laufenden über Neuigkeiten, Angebote und Events.
+            <p className="text-sm text-muted-foreground font-light leading-relaxed">
+              Neuigkeiten, regionale Angebote und Events – einmal im Monat in Ihr Postfach.
             </p>
             <form className="mt-4 space-y-3" onSubmit={(e) => e.preventDefault()}>
-              <Input type="email" placeholder="Ihre E-Mail-Adresse" className="bg-background" />
-              <Button type="submit" className="w-full">
-                Anmelden <LeafIcon className="w-4 h-3 ml-2" />
-              </Button>
+              <Input
+                type="email"
+                placeholder="Ihre E-Mail-Adresse"
+                className="bg-background rounded-[14px] h-11"
+              />
+              <button
+                type="submit"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-[14px] h-11 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-dark transition-colors"
+              >
+                Anmelden <ArrowRight className="w-4 h-4" />
+              </button>
             </form>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-primary/15 text-center text-xs text-foreground/60">
-          <div className="flex items-center justify-center gap-2">
-            <LeafIcon className="w-4 h-3 text-primary" />
-            <span>© 2026 Bio am Markt – Katharina Laitsch & Anja Olden GbR</span>
-          </div>
-          <div className="mt-2 space-x-3">
-            <a href="#" className="hover:text-primary">Impressum</a>
-            <span>|</span>
-            <a href="#" className="hover:text-primary">Datenschutz</a>
+        <div className="border-t border-border/60">
+          <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <LeafIcon className="w-3.5 h-3 text-primary" />
+              <span>© 2026 Bio am Markt – Katharina Laitsch & Anja Olden GbR</span>
+            </div>
+            <div className="flex items-center gap-5">
+              <a href="#" className="hover:text-primary transition-colors">Impressum</a>
+              <a href="#" className="hover:text-primary transition-colors">Datenschutz</a>
+            </div>
           </div>
         </div>
       </footer>
