@@ -226,7 +226,8 @@ function Index() {
               <p>Am Markt 16</p>
               <p>32105 Bad Salzuflen</p>
               <p className="pt-4 flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5" strokeWidth={1.5} /> 05222 / 80 60 838
+                <Phone className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <span>05222 / 80 60 838</span>
               </p>
               <p className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5" strokeWidth={1.5} />
@@ -234,6 +235,7 @@ function Index() {
                   info@bio-am-markt-bs.de
                 </a>
               </p>
+
             </address>
           </div>
           <div>
