@@ -132,7 +132,7 @@ function Index() {
               Bewusst. Regional. <span className="text-primary">Echt.</span>
             </h2>
             <p className="text-muted-foreground font-light">
-              Vier Werte, die jeden Tag in unserem Markt sichtbar werden.
+              Drei Werte, die jeden Tag in unserem Markt sichtbar werden.
             </p>
           </div>
           <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
