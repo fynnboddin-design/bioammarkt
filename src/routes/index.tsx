@@ -70,7 +70,7 @@ function Index() {
     <div className="min-h-screen bg-background text-foreground">
       {/* Sticky Nav */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-6 lg:py-8 flex items-center justify-between">
           <Logo />
           <nav className="hidden lg:flex items-center gap-10 text-sm text-foreground/75">
             {nav.map((n) => (
