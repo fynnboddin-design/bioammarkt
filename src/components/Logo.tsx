@@ -1,4 +1,4 @@
-import logoSrc from "@/assets/logo.png";
+import logoSrc from "@/assets/logo-v2.png";
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
