@@ -3,11 +3,27 @@ import { useEffect, useState } from "react";
 import { Leaf, MapPin, Heart, Users, Clock, ArrowRight, Mail, Phone, ChevronLeft, ChevronRight } from "lucide-react";
 import { Logo, LeafIcon } from "@/components/Logo";
 import heroBag from "@/assets/hero-bag.jpg";
-import storeInterior from "@/assets/store-interior.jpg";
+import img1 from "@/assets/IMG_0474.jpeg.asset.json";
+import img2 from "@/assets/IMG_3428.jpeg.asset.json";
+import img3 from "@/assets/IMG_3441.jpeg.asset.json";
+import img4 from "@/assets/IMG_0376.jpeg.asset.json";
+import img5 from "@/assets/IMG_0427.jpeg.asset.json";
+import img6 from "@/assets/IMG_0432.jpeg.asset.json";
+import img7 from "@/assets/IMG_0463.jpeg.asset.json";
+import img8 from "@/assets/IMG_0423.jpeg.asset.json";
+import img9 from "@/assets/IMG_3433.jpeg.asset.json";
 
 // About slider images — replace/add entries here to swap images
 const aboutImages: { src: string; alt: string }[] = [
-  { src: storeInterior, alt: "Innenansicht von Bio am Markt" },
+  { src: img1.url, alt: "Bio am Markt – Eingang in Bad Salzuflen" },
+  { src: img2.url, alt: "Frische Obstauslage im Markt" },
+  { src: img3.url, alt: "Gemüseregal mit regionalen Produkten" },
+  { src: img4.url, alt: "Käse- und Weintheke" },
+  { src: img5.url, alt: "Brot- und Bäckereiauswahl" },
+  { src: img6.url, alt: "Frischetheke mit Käseproben" },
+  { src: img7.url, alt: "Wein- und Schokoladenbereich" },
+  { src: img8.url, alt: "Saftregal mit Bio-Säften" },
+  { src: img9.url, alt: "Naturkosmetik-Bereich" },
 ];
 
 function AboutSlider() {
