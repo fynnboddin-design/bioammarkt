@@ -1,9 +1,80 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Leaf, MapPin, Heart, Users, Clock, ArrowRight, Mail, Phone } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
+import { Leaf, MapPin, Heart, Users, Clock, ArrowRight, Mail, Phone, ChevronLeft, ChevronRight } from "lucide-react";
 import { Logo, LeafIcon } from "@/components/Logo";
 import heroBag from "@/assets/hero-bag.jpg";
 import storeInterior from "@/assets/store-interior.jpg";
+
+// About slider images — replace/add entries here to swap images
+const aboutImages: { src: string; alt: string }[] = [
+  { src: storeInterior, alt: "Innenansicht von Bio am Markt" },
+];
+
+function AboutSlider() {
+  const [index, setIndex] = useState(0);
+  const count = aboutImages.length;
+
+  useEffect(() => {
+    if (count <= 1) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % count), 4500);
+    return () => clearInterval(id);
+  }, [count]);
+
+  const prev = () => setIndex((i) => (i - 1 + count) % count);
+  const next = () => setIndex((i) => (i + 1) % count);
+
+  return (
+    <div className="relative">
+      <div className="absolute -inset-4 bg-beige rounded-[32px] rotate-1" />
+      <div className="relative overflow-hidden rounded-[24px] shadow-[var(--shadow-card)] aspect-[6/5]">
+        {aboutImages.map((img, i) => (
+          <img
+            key={i}
+            src={img.src}
+            alt={img.alt}
+            loading="lazy"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out ${
+              i === index ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+        {count > 1 && (
+          <>
+            <button
+              type="button"
+              aria-label="Vorheriges Bild"
+              onClick={prev}
+              className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/80 backdrop-blur text-foreground flex items-center justify-center hover:bg-background transition-colors shadow"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              aria-label="Nächstes Bild"
+              onClick={next}
+              className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/80 backdrop-blur text-foreground flex items-center justify-center hover:bg-background transition-colors shadow"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              {aboutImages.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Bild ${i + 1}`}
+                  onClick={() => setIndex(i)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === index ? "w-6 bg-primary" : "w-1.5 bg-background/70"
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
