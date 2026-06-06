@@ -278,7 +278,7 @@ function Index() {
 
       {/* Footer */}
       <footer id="kontakt" className="border-t border-border/60 bg-card">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-16 grid md:grid-cols-3 gap-12">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-16 grid md:grid-cols-2 gap-12">
           <div>
             <div className="flex items-center gap-2 text-primary mb-5">
               <MapPin className="w-4 h-4" strokeWidth={1.5} />
@@ -309,7 +309,7 @@ function Index() {
             <ul className="text-sm text-muted-foreground space-y-2 font-light">
               <li className="flex justify-between max-w-[220px]">
                 <span>Mo – Fr</span>
-                <span className="text-foreground">08:00 – 18:30</span>
+                <span className="text-foreground">09:00 – 18:00</span>
               </li>
               <li className="flex justify-between max-w-[220px]">
                 <span>Samstag</span>
@@ -320,28 +320,6 @@ function Index() {
                 <span>geschlossen</span>
               </li>
             </ul>
-          </div>
-          <div>
-            <div className="flex items-center gap-2 text-primary mb-5">
-              <LeafIcon className="w-4 h-3.5" />
-              <h3 className="text-sm font-medium tracking-wide uppercase">Newsletter</h3>
-            </div>
-            <p className="text-sm text-muted-foreground font-light leading-relaxed">
-              Neuigkeiten, regionale Angebote und Events – einmal im Monat in Ihr Postfach.
-            </p>
-            <form className="mt-4 space-y-3" onSubmit={(e) => e.preventDefault()}>
-              <Input
-                type="email"
-                placeholder="Ihre E-Mail-Adresse"
-                className="bg-background rounded-[14px] h-11"
-              />
-              <button
-                type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 rounded-[14px] h-11 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-dark transition-colors"
-              >
-                Anmelden <ArrowRight className="w-4 h-4" />
-              </button>
-            </form>
           </div>
         </div>
         <div className="border-t border-border/60">
