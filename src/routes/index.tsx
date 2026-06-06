@@ -228,16 +228,8 @@ function Index() {
       {/* About */}
       <section id="about" className="py-16 lg:py-24">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative order-2 lg:order-1">
-            <div className="absolute -inset-4 bg-beige rounded-[32px] rotate-1" />
-            <img
-              src={storeInterior}
-              alt="Innenansicht von Bio am Markt"
-              width={1200}
-              height={1000}
-              loading="lazy"
-              className="relative w-full h-auto rounded-[24px] shadow-[var(--shadow-card)] object-cover"
-            />
+          <div className="order-2 lg:order-1">
+            <AboutSlider />
           </div>
           <div className="space-y-6 order-1 lg:order-2">
             <SectionLabel>Über uns</SectionLabel>
