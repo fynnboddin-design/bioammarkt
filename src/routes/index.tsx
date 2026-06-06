@@ -1,9 +1,80 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Leaf, MapPin, Heart, Users, Clock, ArrowRight, Mail, Phone } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
+import { Leaf, MapPin, Heart, Users, Clock, ArrowRight, Mail, Phone, ChevronLeft, ChevronRight } from "lucide-react";
 import { Logo, LeafIcon } from "@/components/Logo";
 import heroBag from "@/assets/hero-bag.jpg";
 import storeInterior from "@/assets/store-interior.jpg";
+
+// About slider images — replace/add entries here to swap images
+const aboutImages: { src: string; alt: string }[] = [
+  { src: storeInterior, alt: "Innenansicht von Bio am Markt" },
+];
+
+function AboutSlider() {
+  const [index, setIndex] = useState(0);
+  const count = aboutImages.length;
+
+  useEffect(() => {
+    if (count <= 1) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % count), 4500);
+    return () => clearInterval(id);
+  }, [count]);
+
+  const prev = () => setIndex((i) => (i - 1 + count) % count);
+  const next = () => setIndex((i) => (i + 1) % count);
+
+  return (
+    <div className="relative">
+      <div className="absolute -inset-4 bg-beige rounded-[32px] rotate-1" />
+      <div className="relative overflow-hidden rounded-[24px] shadow-[var(--shadow-card)] aspect-[6/5]">
+        {aboutImages.map((img, i) => (
+          <img
+            key={i}
+            src={img.src}
+            alt={img.alt}
+            loading="lazy"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out ${
+              i === index ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+        {count > 1 && (
+          <>
+            <button
+              type="button"
+              aria-label="Vorheriges Bild"
+              onClick={prev}
+              className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/80 backdrop-blur text-foreground flex items-center justify-center hover:bg-background transition-colors shadow"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              aria-label="Nächstes Bild"
+              onClick={next}
+              className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/80 backdrop-blur text-foreground flex items-center justify-center hover:bg-background transition-colors shadow"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              {aboutImages.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Bild ${i + 1}`}
+                  onClick={() => setIndex(i)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === index ? "w-6 bg-primary" : "w-1.5 bg-background/70"
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -157,16 +228,8 @@ function Index() {
       {/* About */}
       <section id="about" className="py-16 lg:py-24">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative order-2 lg:order-1">
-            <div className="absolute -inset-4 bg-beige rounded-[32px] rotate-1" />
-            <img
-              src={storeInterior}
-              alt="Innenansicht von Bio am Markt"
-              width={1200}
-              height={1000}
-              loading="lazy"
-              className="relative w-full h-auto rounded-[24px] shadow-[var(--shadow-card)] object-cover"
-            />
+          <div className="order-2 lg:order-1">
+            <AboutSlider />
           </div>
           <div className="space-y-6 order-1 lg:order-2">
             <SectionLabel>Über uns</SectionLabel>
@@ -206,7 +269,7 @@ function Index() {
                 Schauen Sie vorbei – wir freuen uns auf Sie.
               </h2>
               <p className="text-primary-foreground/75 font-light">
-                Am Markt 16, mitten in Bad Salzuflen. Mo–Fr 08:00–18:30, Sa 08:00–14:00.
+                Am Markt 16, mitten in Bad Salzuflen. Mo–Fr 09:00–18:00, Sa 08:00–14:00.
               </p>
             </div>
           </div>
@@ -215,7 +278,7 @@ function Index() {
 
       {/* Footer */}
       <footer id="kontakt" className="border-t border-border/60 bg-card">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-16 grid md:grid-cols-3 gap-12">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-16 grid md:grid-cols-2 gap-12">
           <div>
             <div className="flex items-center gap-2 text-primary mb-5">
               <MapPin className="w-4 h-4" strokeWidth={1.5} />
@@ -246,7 +309,7 @@ function Index() {
             <ul className="text-sm text-muted-foreground space-y-2 font-light">
               <li className="flex justify-between max-w-[220px]">
                 <span>Mo – Fr</span>
-                <span className="text-foreground">08:00 – 18:30</span>
+                <span className="text-foreground">09:00 – 18:00</span>
               </li>
               <li className="flex justify-between max-w-[220px]">
                 <span>Samstag</span>
@@ -257,28 +320,6 @@ function Index() {
                 <span>geschlossen</span>
               </li>
             </ul>
-          </div>
-          <div>
-            <div className="flex items-center gap-2 text-primary mb-5">
-              <LeafIcon className="w-4 h-3.5" />
-              <h3 className="text-sm font-medium tracking-wide uppercase">Newsletter</h3>
-            </div>
-            <p className="text-sm text-muted-foreground font-light leading-relaxed">
-              Neuigkeiten, regionale Angebote und Events – einmal im Monat in Ihr Postfach.
-            </p>
-            <form className="mt-4 space-y-3" onSubmit={(e) => e.preventDefault()}>
-              <Input
-                type="email"
-                placeholder="Ihre E-Mail-Adresse"
-                className="bg-background rounded-[14px] h-11"
-              />
-              <button
-                type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 rounded-[14px] h-11 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-dark transition-colors"
-              >
-                Anmelden <ArrowRight className="w-4 h-4" />
-              </button>
-            </form>
           </div>
         </div>
         <div className="border-t border-border/60">
