@@ -269,7 +269,7 @@ function Index() {
                 Schauen Sie vorbei – wir freuen uns auf Sie.
               </h2>
               <p className="text-primary-foreground/75 font-light">
-                Am Markt 16, mitten in Bad Salzuflen. Mo–Fr 08:00–18:30, Sa 08:00–14:00.
+                Am Markt 16, mitten in Bad Salzuflen. Mo–Fr 09:00–18:00, Sa 08:00–14:00.
               </p>
             </div>
           </div>
